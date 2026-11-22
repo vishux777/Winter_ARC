@@ -1,77 +1,429 @@
 <!doctype html>
-<html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#101511"><meta name="description" content="A mobile-friendly 12-session hybrid gym programme.">
-<title>My Training | Hybrid Gym Companion</title>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f1411">
+<meta name="description" content="HYBRID — a 12-session weekly body recomposition planner with workouts, nutrition and recovery guidance.">
+<title>HYBRID — Body Recomposition Planner</title>
 <style>
-:root{color-scheme:dark;--bg:#0d120f;--panel:#171f19;--panel2:#202b22;--line:#2e3b31;--text:#f3f7f2;--muted:#aab8ad;--lime:#c5f477;--amber:#ffc47a;--blue:#a8c9ff}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 80% -12%,#263c2a 0,transparent 38%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}button,a{font:inherit}a{color:inherit}
-.app{max-width:1000px;margin:auto;padding:16px 15px calc(86px + env(safe-area-inset-bottom))}.top{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:5px 1px 18px}.logo{font-weight:900;letter-spacing:.12em;font-size:12px;color:var(--lime)}.top small{color:var(--muted);font-size:10px}
-.hero{border:1px solid #3a4a3c;border-radius:22px;padding:22px;background:linear-gradient(130deg,#243426,#171e19 68%);box-shadow:0 12px 32px #0003}.kicker{font-size:10px;letter-spacing:.16em;color:var(--lime);font-weight:900;text-transform:uppercase}h1{font-size:clamp(30px,8vw,46px);line-height:1.02;letter-spacing:-.05em;margin:9px 0}.hero p{margin:0;color:var(--muted);font-size:13px;max-width:650px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px}.stat{padding:10px;background:#10171299;border:1px solid #3a493c;border-radius:13px}.stat span{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.1em}.stat b{font-size:17px}
-.progress-wrap{margin-top:17px}.progress-label{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;margin-bottom:7px}.bar{height:7px;border-radius:20px;background:#303c32;overflow:hidden}.bar>i{display:block;height:100%;width:0;background:var(--lime);border-radius:20px;transition:width .2s}
-.section-title{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:25px 2px 11px}.section-title h2{font-size:20px;margin:0}.section-title small{color:var(--muted);font-size:11px}
-.daynav{display:flex;gap:7px;overflow:auto;padding:2px 1px 12px;scrollbar-width:none}.daynav::-webkit-scrollbar{display:none}.daybtn{flex:0 0 auto;border:1px solid var(--line);border-radius:12px;padding:9px 13px;background:var(--panel);color:var(--muted);font-size:12px;font-weight:750;min-height:42px}.daybtn.active{background:var(--lime);color:#152015;border-color:var(--lime)}
-.daycard{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:16px}.dayhead{display:flex;justify-content:space-between;gap:12px;align-items:start}.dayhead h2{margin:2px 0 4px;font-size:21px}.dayhead p{margin:0;color:var(--muted);font-size:12px}.tag{background:#2b3d2d;color:var(--lime);border-radius:100px;padding:6px 9px;font-size:10px;font-weight:850;white-space:nowrap}.resttag{background:#463522;color:var(--amber)}
-.session{margin-top:16px;border:1px solid #344237;background:#121914;border-radius:16px;padding:14px}.sessionhead{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:6px}.sessionhead h3{font-size:16px;margin:0}.sessionhead span{font-size:9px;color:var(--lime);font-weight:850;letter-spacing:.08em}.session-sub{color:var(--muted);font-size:11px;margin:0 0 7px}
-.exercise{border-top:1px solid #29352c;padding:12px 0 2px;margin-top:10px}.ex-top{display:flex;align-items:flex-start;gap:10px}.check{appearance:none;width:22px;height:22px;flex:0 0 22px;border:1.5px solid #66766a;border-radius:7px;background:#111813;margin:1px 0 0;display:grid;place-items:center}.check:checked{background:var(--lime);border-color:var(--lime)}.check:checked:after{content:"✓";color:#172016;font-weight:950;font-size:15px}.ex-main{min-width:0;flex:1}.ex-name{font-size:14px;font-weight:800;line-height:1.25}.ex-meta{font-size:11px;color:var(--muted);margin-top:4px}.ex-actions{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0 0 32px}.linkbtn,.alt-toggle,.reset{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:7px 10px;border:1px solid var(--line);border-radius:10px;background:#202a22;color:#dce8dc;text-decoration:none;font-size:11px;font-weight:750}.linkbtn.primary{border-color:#58703f;color:var(--lime)}.alt-toggle{cursor:pointer}.alternatives{display:none;margin:9px 0 0 32px;padding:10px 11px;border:1px solid #344237;background:#18211a;border-radius:12px;color:var(--muted);font-size:12px}.alternatives.open{display:block}.alternatives b{color:var(--text)}
-.note{margin-top:13px;padding:12px;border-radius:12px;background:#202a22;color:var(--muted);font-size:12px}.warn{border:1px solid #665033;background:#2a2319;color:#e0cfb3}.actions{display:flex;gap:8px;margin-top:13px}.reset{cursor:pointer;min-height:40px}.tabs{display:flex;gap:8px;margin-top:23px}.tab{flex:1;min-height:44px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--muted);font-weight:800;font-size:12px}.tab.active{background:var(--lime);color:#172016;border-color:var(--lime)}
-.panel{margin-top:12px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px}.panel h3{margin:0 0 10px;font-size:17px}.panel p{color:var(--muted);font-size:13px}.macrogrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.macro{background:var(--panel2);padding:12px;border-radius:12px}.macro small{display:block;color:var(--muted);font-size:10px}.macro b{font-size:19px}.food{width:100%;border-collapse:collapse;font-size:12px}.food td{padding:9px 0;border-bottom:1px solid var(--line)}.food td:last-child{text-align:right;color:var(--muted)}
-.bottomnav{position:fixed;bottom:0;left:0;right:0;z-index:5;padding:9px 12px calc(9px + env(safe-area-inset-bottom));background:#101712ed;border-top:1px solid var(--line);backdrop-filter:blur(12px);display:flex;justify-content:center;gap:10px}.bottomnav a{flex:1;max-width:220px;text-align:center;text-decoration:none;color:var(--muted);font-size:11px;font-weight:800;padding:8px}footer{text-align:center;color:#748278;font-size:10px;padding:22px 0 4px}
-@media(min-width:760px){.app{padding:26px 24px 50px}.hero{padding:30px}.daycard{padding:22px}.session{padding:18px}.exercise{display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px}.ex-actions{margin:0}.alternatives{grid-column:1/-1;margin:0}.ex-name{font-size:15px}}
-@media(max-width:430px){.stats{grid-template-columns:repeat(2,1fr)}.hero{padding:18px}.dayhead{display:block}.tag{display:inline-block;margin-top:9px}.ex-actions{margin-left:32px}.linkbtn,.alt-toggle{min-height:39px}.section-title{align-items:start;flex-direction:column;gap:3px}.sessionhead{align-items:start;flex-direction:column}}
-</style></head><body>
+:root{color-scheme:dark;--bg:#0e1210;--card:#171e19;--card2:#1e2820;--line:#2b382e;--text:#f1f6ef;--muted:#a3b2a6;--lime:#c6f36b;--lime2:#9bd143;--amber:#ffc46b;--red:#ff8a7a}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:radial-gradient(ellipse at 85% -10%,#24402a 0,transparent 40%),var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;overflow-x:hidden;min-height:100vh}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+a{color:inherit}
+.app{max-width:980px;margin:0 auto;padding:16px 14px calc(88px + env(safe-area-inset-bottom))}
+header.top{display:flex;justify-content:space-between;align-items:center;padding:4px 2px 16px}
+.logo{font-weight:900;letter-spacing:.2em;color:var(--lime);font-size:15px}
+.top small{color:var(--muted);font-size:11px;letter-spacing:.06em}
+.hero{border:1px solid #38503b;border-radius:24px;padding:22px;background:linear-gradient(135deg,#25402a,#151c17 70%)}
+.kicker{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:var(--lime)}
+h1{font-size:clamp(30px,8vw,46px);line-height:1.04;letter-spacing:-.04em;margin:8px 0 10px}
+.hero p{color:var(--muted);font-size:14px;max-width:620px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px}
+.stat{background:#0e14119a;border:1px solid #38503b;border-radius:14px;padding:10px}
+.stat span{display:block;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.stat b{font-size:18px}
+.bar{height:9px;background:#2c382f;border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--lime2),var(--lime));border-radius:99px;transition:width .25s}
+.weekprog{margin-top:18px}
+.weekprog .row{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:7px}
+.weekprog .row b{color:var(--lime)}
+.view{display:none;margin-top:20px}
+.view.active{display:block}
+h2{font-size:22px;margin-bottom:4px}
+.sub{color:var(--muted);font-size:13px;margin-bottom:12px}
+.daynav{position:sticky;top:0;z-index:4;display:flex;gap:7px;overflow-x:auto;padding:10px 2px;margin:0 -2px 8px;background:linear-gradient(var(--bg) 80%,transparent);scrollbar-width:none}
+.daynav::-webkit-scrollbar{display:none}
+.daybtn{flex:1 0 auto;min-width:56px;min-height:50px;border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--muted);font-weight:800;font-size:13px;padding:6px 10px;line-height:1.2}
+.daybtn small{display:block;font-size:10px;font-weight:600;opacity:.8}
+.daybtn.active{background:var(--lime);border-color:var(--lime);color:#13200f}
+.daybtn.rest{border-style:dashed}
+.daycard{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px}
+.dayhead h3{font-size:24px;letter-spacing:-.02em}
+.dayhead p{color:var(--muted);font-size:13px;margin:2px 0 12px}
+.dayprog{margin-bottom:6px}
+.dayprog .row{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px}
+.dayprog .row b{color:var(--lime)}
+.session{margin-top:16px;background:#111712;border:1px solid #324036;border-radius:18px;padding:14px}
+.shead{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.pill{font-size:11px;font-weight:900;letter-spacing:.1em;padding:5px 10px;border-radius:99px}
+.pill.am{background:#e9f6c5;color:#1b2a10}
+.pill.pm{background:#2a3a52;color:#bcd6ff}
+.shead h4{font-size:18px}
+.smeta{color:var(--muted);font-size:12px;margin-bottom:6px}
+.ex{border-top:1px solid #28352b;padding:14px 0 6px;margin-top:10px}
+.extop{display:flex;gap:12px;align-items:flex-start}
+.check{appearance:none;-webkit-appearance:none;flex:0 0 30px;width:30px;height:30px;border:2px solid #66786b;border-radius:9px;background:#0f1511;display:grid;place-items:center;margin-top:1px;cursor:pointer}
+.check:checked{background:var(--lime);border-color:var(--lime)}
+.check:checked::after{content:"✓";color:#13200f;font-weight:900;font-size:19px}
+.check:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--lime);outline-offset:2px}
+.exbody{flex:1;min-width:0}
+.exname{font-size:19px;font-weight:800;line-height:1.2;letter-spacing:-.01em}
+.ex.done .exname{color:var(--muted);text-decoration:line-through;text-decoration-color:#6b7b6e}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{font-size:12px;padding:4px 9px;border-radius:99px;background:var(--card2);border:1px solid var(--line);color:#d7e4d8}
+.chip.sets{color:var(--lime);border-color:#4b6a3a;font-weight:800}
+.exact{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0 42px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 14px;border-radius:12px;border:1px solid var(--line);background:#222d24;color:#e0ecdf;font-size:13px;font-weight:700;text-decoration:none}
+.btn.p{border-color:#587a3c;color:var(--lime)}
+.alt{margin:10px 0 0 42px;padding:12px;border:1px solid #34463a;border-radius:14px;background:#19231b;font-size:14px}
+.alt[hidden]{display:none}
+.alt b{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.alt .altname{font-size:16px;font-weight:700;margin-bottom:8px}
+.rest-card{margin-top:6px;padding:22px 16px;border-radius:18px;border:1px dashed #7a6240;background:#2a2218;text-align:center}
+.rest-card .big{font-size:42px}
+.rest-card h4{font-size:22px;color:var(--amber);margin:4px 0}
+.rest-card p{color:#dccdb2;font-size:14px;max-width:480px;margin:6px auto 0}
+.note{margin-top:12px;padding:12px 14px;border-radius:14px;background:var(--card2);color:var(--muted);font-size:13px}
+.note b{color:var(--text)}
+.warn{background:#2b2418;border:1px solid #6b5333;color:#e6d4b4}
+.warn b{color:var(--amber)}
+.good{background:#1a2a1b;border:1px solid #3d5c3a}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin-top:12px}
+.panel h3{font-size:18px;margin-bottom:8px}
+.panel p,.panel li{color:var(--muted);font-size:14px}
+.panel ul{padding-left:20px}
+.panel li{margin:5px 0}
+.panel li b,.panel p b{color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.macro{background:var(--card2);border-radius:14px;padding:12px}
+.macro small{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.macro b{font-size:22px;color:var(--lime)}
+.macro span{font-size:12px;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td,th{padding:9px 4px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+td:last-child,th:last-child{text-align:right;color:var(--muted)}
+tr.total td{color:var(--lime);font-weight:800;border-bottom:0}
+.danger{background:#3a1f1c;border:1px solid #7a3d36;color:#ffc9c0;border-radius:12px;min-height:46px;padding:10px 16px;font-weight:700;width:100%;margin-top:12px}
+.tools{margin-top:14px}
+.bottomnav{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;background:#0f1511f2;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom))}
+.bottomnav button{flex:1;min-height:54px;border:0;background:none;color:var(--muted);font-size:11px;font-weight:700;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.bottomnav button span{font-size:20px;line-height:1}
+.bottomnav button.active{color:var(--lime);background:#1b2a1c}
+footer{text-align:center;color:#6f8073;font-size:11px;padding:24px 0 0}
+@media(max-width:480px){.stats{grid-template-columns:repeat(2,1fr)}.exact,.alt{margin-left:0}.exname{font-size:18px}}
+@media(min-width:760px){.app{padding:26px 24px 100px}.hero{padding:30px}.daycard{padding:22px}.session{padding:18px}.grid.g4{grid-template-columns:repeat(4,1fr)}.cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}.cols .panel{margin-top:12px}.bottomnav{max-width:560px;left:50%;right:auto;transform:translateX(-50%);bottom:14px;border:1px solid var(--line);border-radius:20px}}
+</style>
+</head>
+<body>
 <div class="app">
-<header class="top"><div class="logo">MY TRAINING / COMPANION</div><small>HYBRID PLAN · V2.0</small></header>
-<section class="hero" id="home"><div class="kicker">Body recomposition · Hybrid strength</div><h1>Train twice.<br>Recover smarter.</h1>
-<p>12 weekly sessions across six training days, with roughly 10 hours between sessions. Each session is capped around 45 minutes. Tuesday is your full rest day.</p>
-<div class="stats"><div class="stat"><span>Age</span><b>21</b></div><div class="stat"><span>Height</span><b>5'11"</b></div><div class="stat"><span>Weight</span><b>84 kg</b></div><div class="stat"><span>Sessions</span><b>12 / week</b></div></div>
-<div class="progress-wrap"><div class="progress-label"><span>Selected day completion</span><span id="progressText">0 / 0 complete</span></div><div class="bar"><i id="progressBar"></i></div></div></section>
-<div class="section-title"><h2>Weekly training</h2><small>Select a day · tick exercises as completed</small></div><nav class="daynav" id="daynav" aria-label="Choose training day"></nav>
-<section class="daycard" id="workout"></section>
-<div class="tabs" role="tablist"><button class="tab active" data-tab="nutrition">Nutrition & supplements</button><button class="tab" data-tab="guide">Training guide</button></div>
-<section class="panel" id="nutrition"><h3>Starting daily targets</h3><div class="macrogrid">
-<div class="macro"><small>Calories · provisional</small><b>2,500–2,600</b></div><div class="macro"><small>Protein</small><b>~160 g</b></div><div class="macro"><small>Carbs · estimate</small><b>280–300 g</b></div><div class="macro"><small>Fat · estimate</small><b>75–85 g</b></div></div>
-<div class="note">These are starting estimates, not measured requirements. Review 2–3 weeks of average body weight, waist, hunger, gym performance and recovery before changing calories.</div>
-<h3 style="margin-top:18px">Your planned food basics</h3><table class="food"><tr><td>Whole-wheat rotis</td><td>8 / day</td></tr><tr><td>Full-cream milk</td><td>1 litre</td></tr><tr><td>Whole eggs</td><td>4 / day</td></tr><tr><td>Whey powder</td><td>1 scoop (27 g)</td></tr><tr><td>Salted lassi</td><td>400 ml</td></tr><tr><td>Sabji</td><td>3 katoris</td></tr></table>
-<div class="note">Actual calories and protein depend on roti flour weight, milk/whey labels, curd quantity and cooking oil. Weigh portions and use labels for a reliable total.</div>
-<h3 style="margin-top:18px">Supplement notes</h3><table class="food"><tr><td>Creatine monohydrate</td><td>3–5 g daily, including rest day</td></tr><tr><td>Magnesium</td><td>Check elemental magnesium on label; avoid high-dose self-prescribing</td></tr></table>
-<div class="note">Creatine can increase scale weight temporarily through muscle water, not fat. For magnesium, the adult upper limit from supplements/medications is generally 350 mg elemental magnesium daily unless a clinician advises otherwise. Check with a clinician before supplements if you have kidney disease or relevant medication use.</div></section>
-<section class="panel" id="guide" hidden><h3>How to run 12 sessions responsibly</h3>
-<table class="food"><tr><td>Session length</td><td>~45 minutes</td></tr><tr><td>Between sessions</td><td>~10 hours</td></tr><tr><td>Warm-up</td><td>5–7 min + ramp-up sets</td></tr><tr><td>Working sets</td><td>Usually 1–3 reps in reserve</td></tr><tr><td>Heavy compound rest</td><td>2–3 min</td></tr><tr><td>Accessories rest</td><td>45–90 sec</td></tr><tr><td>Rest day</td><td>Tuesday — full rest</td></tr></table>
-<div class="note warn"><b>Important:</b> 12 resistance sessions per week is a demanding schedule, even with a 10-hour gap. This plan intentionally keeps several sessions low-volume and avoids failure. Start the first 2 weeks at about 60–70% of listed working sets if you're not already adapted to this frequency. Do not add extra sets or finishers.</div>
-<div class="note">If strength drops across several sessions, soreness lasts more than 48–72 hours, sleep worsens, or joints/tendons hurt, reduce volume or remove the evening session temporarily. Aim for 7–9 hours of sleep and regular meals between sessions.</div>
-<div class="note">Cardio is short and mostly low-impact: bike or elliptical at a pace where you can still speak in sentences. Running is optional and should wait until outdoor air quality is suitable. If you have a medical condition or persistent pain, get professional guidance before following a high-frequency plan.</div></section>
-<footer>TRAIN SMART · RECOVER WELL · STAY CONSISTENT</footer></div>
-<nav class="bottomnav"><a href="#home">HOME</a><a href="#workout">WORKOUTS</a><a href="#nutrition">NUTRITION</a></nav>
+<header class="top"><div class="logo">HYBRID</div><small>BODY RECOMPOSITION PLANNER</small></header>
+
+<section class="hero">
+<div class="kicker">12 sessions · 6 days · 45 min each</div>
+<h1>Train twice.<br>Recover smarter.</h1>
+<p>Lose fat, build muscle. Morning and evening sessions about 10 hours apart, with Tuesday as a full rest day.</p>
+<div class="stats">
+<div class="stat"><span>Age</span><b>21</b></div>
+<div class="stat"><span>Height</span><b>5'11" · 180 cm</b></div>
+<div class="stat"><span>Weight</span><b>84 kg</b></div>
+<div class="stat"><span>Diet</span><b>Eggetarian</b></div>
+</div>
+<div class="weekprog"><div class="row"><span>Weekly completion</span><b id="weekText">0%</b></div><div class="bar"><i id="weekBar"></i></div><div class="row" style="margin-top:6px"><span id="weekCount">0 of 0 exercises</span></div></div>
+</section>
+
+<main>
+<section class="view active" id="view-train">
+<h2>Weekly training</h2>
+<p class="sub">Pick a day, tick exercises as you finish them. Progress saves on this device.</p>
+<nav class="daynav" id="daynav" aria-label="Choose day"></nav>
+<div class="daycard" id="daycard"></div>
+<div class="tools"><button class="danger" id="resetAll">Reset all progress</button></div>
+</section>
+
+<section class="view" id="view-nutrition">
+<h2>Nutrition</h2>
+<p class="sub">Starting estimates, not exact requirements.</p>
+<div class="panel"><h3>Daily starting targets</h3>
+<div class="grid g4">
+<div class="macro"><small>Calories</small><b>2,500–2,600</b><span>kcal / day</span></div>
+<div class="macro"><small>Protein</small><b>150–170 g</b><span>≈ 1.8–2.0 g/kg</span></div>
+<div class="macro"><small>Carbs</small><b>280–310 g</b><span>approx.</span></div>
+<div class="macro"><small>Fat</small><b>65–80 g</b><span>approx.</span></div>
+</div>
+<div class="note warn"><b>These are estimates.</b> Track your average body weight, waist, gym performance, hunger and recovery for 2–3 weeks before changing anything. Weight steady and strength rising means it is working. Weight flat and waist not shrinking: trim about 150–200 kcal (mostly from oil or extra carbs). Weight dropping fast with strength falling: add food.</div>
+</div>
+
+<div class="panel"><h3>Your current diet — rough estimate</h3>
+<table>
+<tr><th>Item</th><th>≈ kcal · protein</th></tr>
+<tr><td>8 medium rotis</td><td>800 · 24 g</td></tr>
+<tr><td>1 litre full-cream milk</td><td>650 · 33 g</td></tr>
+<tr><td>4 whole eggs</td><td>310 · 25 g</td></tr>
+<tr><td>1 scoop whey</td><td>120 · 24 g</td></tr>
+<tr><td>400 ml salted lassi</td><td>160 · 10 g</td></tr>
+<tr><td>3 katoris sabji</td><td>250–400 · 6–9 g</td></tr>
+<tr class="total"><td>Approx. total</td><td>2,300–2,450 · ~125 g</td></tr>
+</table>
+<div class="note">Rough numbers only. Real values depend on roti size, milk and whey labels, and especially cooking oil. Weigh or check labels for a few days to get a true picture.</div>
+</div>
+
+<div class="cols">
+<div class="panel"><h3>Raise protein to 150–170 g</h3>
+<ul>
+<li><b>Add a second whey scoop</b> or a shake after the evening session (+24 g).</li>
+<li><b>Paneer, 100 g</b> in the sabji or as a snack (+18 g).</li>
+<li><b>Soya chunks, 30 g dry</b> in the sabji (+15 g).</li>
+<li><b>Greek or hung curd, 200 g</b> instead of some lassi (+15–20 g).</li>
+<li><b>Roasted chana or sprouts</b> as a snack (+8–10 g per 50 g).</li>
+<li>Eggs: 4 to 6 a day is fine for most healthy people.</li>
+<li>Spread protein across 4 meals, about 30–40 g each.</li>
+</ul></div>
+<div class="panel"><h3>Control oil and portions</h3>
+<ul>
+<li><b>Measure cooking oil.</b> One tablespoon is about 120 kcal, and it adds up fast in sabji.</li>
+<li>Use a teaspoon or spray for sabji, around 1–2 tsp per katori.</li>
+<li>Count rotis the same way every day. Changing from 8 to 6 or 10 is a 150–250 kcal adjustment.</li>
+<li>Use the same katori size and fill it level.</li>
+<li>Choose plain curd or lassi without sugar. Salted lassi is fine.</li>
+<li>Fill half the plate with vegetables and salad to stay full.</li>
+</ul></div>
+</div>
+
+<div class="panel"><h3>Supplements</h3>
+<ul>
+<li><b>Creatine monohydrate: 3–5 g daily,</b> including rest days. No loading phase needed. Mix into water, milk or lassi, any time of day.</li>
+<li><b>Early weight gain is likely water</b> stored inside muscle (about 0.5–2 kg). It is not fat, and it is not a reason to stop.</li>
+<li><b>Magnesium:</b> check the label for <b>elemental magnesium</b>, not the compound weight (for example, 500 mg magnesium citrate is only about 80 mg elemental). The general upper limit from supplements and medications is <b>350 mg elemental magnesium per day</b> unless a doctor advises otherwise. Taking it in the evening is common. Loose stools mean the dose is too high.</li>
+<li><b>Whey</b> is a convenient way to hit protein targets, not a requirement. Food comes first.</li>
+<li>Check with a doctor first if you have kidney problems or take regular medication.</li>
+</ul></div>
+</section>
+
+<section class="view" id="view-cardio">
+<h2>Cardio and steps</h2>
+<p class="sub">Support fat loss without eating into recovery.</p>
+<div class="panel"><h3>Your cardio plan</h3>
+<ul>
+<li><b>2–3 indoor sessions per week</b> on a stationary bike or elliptical. They are already placed in your evening sessions: Wednesday (easy), Friday (Zone 2) and Sunday (easy).</li>
+<li><b>Start at 8–12 minutes,</b> and add about 2 minutes per week until you reach <b>20 minutes</b>. Hold there.</li>
+<li><b>Daily steps: 8,000–10,000,</b> if recovery allows. Get up for a 3–5 minute walk every hour of your desk work.</li>
+<li><b>Running stays paused</b> while outdoor air quality is poor. Check the AQI. Stay indoors for cardio when it is unhealthy.</li>
+</ul></div>
+<div class="panel"><h3>What is Zone 2?</h3>
+<p>Zone 2 is an easy, steady effort. You are breathing a bit harder but can still speak in full sentences. A rough guide is 5–6 out of 10 effort, or around 60–70% of max heart rate (about 120–140 bpm at your age). If you cannot talk, slow down. Because it is easy, it burns calories and builds your aerobic base without wrecking your next lifting session.</p></div>
+<div class="panel"><h3>Cardio progression</h3>
+<table>
+<tr><th>Weeks</th><th>Time per session</th></tr>
+<tr><td>1–2</td><td>8–10 min</td></tr>
+<tr><td>3–4</td><td>10–14 min</td></tr>
+<tr><td>5–6</td><td>14–18 min</td></tr>
+<tr><td>7+</td><td>up to 20 min</td></tr>
+</table></div>
+</section>
+
+<section class="view" id="view-recovery">
+<h2>Recovery and progression</h2>
+<p class="sub">12 sessions a week is a lot. Protect the recovery side.</p>
+<div class="note warn"><b>Early adaptation warning.</b> Two weeks at 12 sessions per week is still an early adaptation period. Soreness, tiredness and joint stiffness are normal at first. Do not add extra sets, finishers or extra days. Do not automatically increase weekly volume. Hold the plan steady and let your body catch up.</div>
+<div class="panel"><h3>Effort and rest</h3>
+<ul>
+<li><b>Heavy compound lifts</b> (bench, squat, RDL, close-grip bench): stop with <b>1–2 reps in reserve</b>. Rest <b>2–3 minutes</b>.</li>
+<li><b>Isolation exercises:</b> also 1–2 reps in reserve. On the final safe set only, <b>0–1 RIR</b> is okay occasionally.</li>
+<li><b>Isolation rest: 60–90 seconds.</b></li>
+<li><b>Do not train to failure on every set.</b> Failure builds fatigue far faster than it builds muscle.</li>
+<li>Warm up 5 minutes, then do 1–2 lighter ramp-up sets before your first heavy lift.</li>
+<li>Short on time? Pair two isolation exercises back to back.</li>
+</ul></div>
+<div class="panel"><h3>Progressive overload</h3>
+<ul>
+<li>Pick a weight that lets you hit the lower end of the rep range with 1–2 reps in reserve.</li>
+<li><b>Double progression:</b> when you reach the top of the rep range on all sets with good form, add the smallest weight jump next session (about 2.5 kg for upper body, 5 kg for lower body, or one pin).</li>
+<li>Write down weights. If you cannot beat last time, repeating it is still fine.</li>
+<li>Progress one or two lifts at a time, not everything at once.</li>
+</ul></div>
+<div class="panel"><h3>Recovery basics</h3>
+<ul>
+<li><b>Sleep 7–9 hours.</b> This matters more than any supplement.</li>
+<li>Eat at least 3 solid meals and hit your protein every day, including Tuesday.</li>
+<li>Drink water through the day. Aim for pale-yellow urine.</li>
+<li>Use Tuesday for real rest, with easy walking only.</li>
+</ul></div>
+<div class="note warn"><b>Warning signs — reduce volume or skip an evening session:</b> strength dropping across several sessions, soreness lasting past 48–72 hours, resting heart rate noticeably higher, poor sleep, low mood or motivation, getting ill often, or sharp or persistent joint or tendon pain. Pain is different from soreness. See a doctor or physio if it does not settle.</div>
+<div class="note good"><b>Deload recommendation.</b> Take a deload week every 4–6 weeks, or sooner if the warning signs appear. For one week, keep the same exercises but do about half the sets and stay 3–4 reps from failure. You can also drop the evening sessions for that week. Then resume normally.</div>
+</section>
+</main>
+
+<footer>TRAIN SMART · RECOVER WELL · STAY CONSISTENT<br>General fitness information, not medical advice.</footer>
+</div>
+
+<nav class="bottomnav" aria-label="Sections">
+<button data-view="train" class="active"><span>🏋️</span>Train</button>
+<button data-view="nutrition"><span>🥚</span>Nutrition</button>
+<button data-view="cardio"><span>🚴</span>Cardio</button>
+<button data-view="recovery"><span>😴</span>Recovery</button>
+</nav>
+
 <script>
-const workouts = [{"day": "Monday", "tag": "PUSH STRENGTH + PULL STRENGTH", "focus": "Two separate upper-body sessions. Keep the evening pull session controlled; don't turn both sessions into max-effort workouts.", "sessions": [{"time": "MORNING · SESSION 1", "title": "Push strength — chest, shoulders, triceps", "level": "Primary session", "items": [["Barbell bench press", "3 × 5–8", "Chest", "2–3 min", "Dumbbell bench press; machine chest press; push-up", "barbell bench press proper form"], ["Incline dumbbell press", "2 × 8–10", "Upper chest", "90–120 sec", "Incline machine press; Smith incline press", "incline dumbbell press proper form"], ["Seated dumbbell shoulder press", "2 × 8–10", "Shoulders", "90–120 sec", "Machine shoulder press; landmine press", "seated dumbbell shoulder press form"], ["Rope triceps pushdown", "2 × 10–15", "Triceps", "60–90 sec", "Band pushdown; close-grip push-up", "rope triceps pushdown proper form"]]}, {"time": "EVENING · SESSION 2", "title": "Pull strength — back, rear delts, biceps", "level": "Primary session", "items": [["Chest-supported row", "3 × 6–10", "Mid-back", "2 min", "Seated cable row; supported dumbbell row", "chest supported row proper form"], ["Lat pulldown", "3 × 8–12", "Lats", "90–120 sec", "Assisted pull-up; band pulldown", "lat pulldown proper form"], ["Reverse pec deck", "2 × 12–15", "Rear delts", "60–90 sec", "Cable reverse fly; band pull-apart", "reverse pec deck proper form"], ["Dumbbell curl", "2 × 10–12", "Biceps", "60–90 sec", "Cable curl; EZ-bar curl", "dumbbell biceps curl proper form"]]}]}, {"day": "Tuesday", "tag": "FULL REST", "focus": "No gym sessions. Easy normal movement is fine; prioritize meals, hydration and sleep.", "sessions": [{"time": "RECOVERY", "title": "Rest and recharge", "level": "No training", "items": [["Optional easy mobility", "5–10 min", "Mobility", "Easy pace", "Gentle shoulder, hip and ankle mobility", "gentle full body mobility routine"]]}]}, {"day": "Wednesday", "tag": "LOWER A · QUADS + POSTERIOR CHAIN", "focus": "Separate quad-dominant and hamstring/glute work by about 10 hours. Keep both sessions inside the prescribed sets.", "sessions": [{"time": "MORNING · SESSION 3", "title": "Quads + calves", "level": "Primary session", "items": [["Back squat", "3 × 5–8", "Quads / glutes", "2–3 min", "Hack squat; goblet squat; leg press", "barbell back squat proper form"], ["Leg press", "2 × 10–12", "Quads / glutes", "90–120 sec", "Hack squat; supported split squat", "leg press proper form"], ["Leg extension", "2 × 12–15", "Quads", "60–90 sec", "Spanish squat; controlled step-up", "leg extension machine proper form"], ["Standing calf raise", "2 × 10–15", "Calves", "60–90 sec", "Calf-raise machine; single-leg calf raise", "standing calf raise proper form"]]}, {"time": "EVENING · SESSION 4", "title": "Hamstrings + glutes", "level": "Primary session", "items": [["Romanian deadlift", "3 × 6–10", "Hamstrings / glutes", "2 min", "Dumbbell RDL; cable pull-through", "romanian deadlift proper form"], ["Seated leg curl", "3 × 10–15", "Hamstrings", "60–90 sec", "Lying leg curl; stability-ball curl", "seated leg curl machine proper form"], ["Hip thrust", "2 × 8–12", "Glutes", "90–120 sec", "Glute bridge; Smith hip thrust", "barbell hip thrust proper form"], ["Dead bug", "2 × 8–12 / side", "Core", "45–60 sec", "Bird dog; heel taps", "dead bug exercise proper form"]]}]}, {"day": "Thursday", "tag": "UPPER HYPERTROPHY", "focus": "Moderate loads, controlled reps and no grinding. Cardio is short and low-impact after the evening session.", "sessions": [{"time": "MORNING · SESSION 5", "title": "Chest + side delts", "level": "Hypertrophy", "items": [["Incline machine chest press", "3 × 8–12", "Upper chest", "90–120 sec", "Incline dumbbell press; Smith incline press", "incline chest press machine form"], ["Cable chest fly", "2 × 12–15", "Chest", "60–90 sec", "Pec deck; band fly", "cable chest fly proper form"], ["Cable lateral raise", "3 × 12–20", "Side delts", "45–75 sec", "Dumbbell lateral raise; lateral-raise machine", "cable lateral raise proper form"], ["Rope overhead triceps extension", "2 × 10–15", "Triceps", "60–90 sec", "Single dumbbell extension; band extension", "rope overhead triceps extension form"]]}, {"time": "EVENING · SESSION 6", "title": "Back + biceps + cardio", "level": "Hypertrophy + conditioning", "items": [["Seated cable row", "3 × 8–12", "Mid-back", "90 sec", "Machine row; chest-supported dumbbell row", "seated cable row proper form"], ["Neutral-grip pulldown", "2 × 10–12", "Lats", "90 sec", "Assisted neutral-grip pull-up; band pulldown", "neutral grip lat pulldown form"], ["Cable curl", "2 × 10–15", "Biceps", "60 sec", "Dumbbell curl; preacher curl", "cable biceps curl proper form"], ["Stationary bike", "8–10 min", "Cardio · easy/moderate", "—", "Elliptical; indoor walk at conversational pace", "stationary bike cardio workout"]]}]}, {"day": "Friday", "tag": "LOWER B · QUAD + POSTERIOR ACCESSORIES", "focus": "A second lower-body exposure with moderate volume. Don't chase failure, especially after Wednesday's two lower sessions.", "sessions": [{"time": "MORNING · SESSION 7", "title": "Quads + unilateral work", "level": "Hypertrophy", "items": [["Hack squat", "3 × 8–12", "Quads / glutes", "2 min", "Leg press; goblet squat", "hack squat proper form"], ["Bulgarian split squat", "2 × 8–10 / leg", "Quads / glutes", "90 sec", "Reverse lunge; supported split squat", "bulgarian split squat proper form"], ["Leg extension", "2 × 12–15", "Quads", "60 sec", "Spanish squat; step-up", "leg extension machine proper form"], ["Seated calf raise", "2 × 12–15", "Calves", "60 sec", "Bent-knee calf raise; calf machine", "seated calf raise proper form"]]}, {"time": "EVENING · SESSION 8", "title": "Hamstrings + glutes + abs", "level": "Accessory + core", "items": [["Lying leg curl", "2 × 10–15", "Hamstrings", "60–90 sec", "Seated leg curl; stability-ball curl", "lying leg curl machine proper form"], ["45-degree back extension", "2 × 10–12", "Glutes / posterior chain", "60–90 sec", "Cable pull-through; bodyweight hip hinge", "45 degree back extension glute focus"], ["Cable crunch", "2 × 12–15", "Abs", "45–60 sec", "Weighted floor crunch; machine crunch", "cable crunch proper form"], ["Side plank", "2 × 20–40 sec / side", "Obliques / core", "45 sec", "Pallof press; side plank from knees", "side plank proper form"]]}]}, {"day": "Saturday", "tag": "UPPER MIX + ARMS", "focus": "Shorter, lower-fatigue upper-body exposures. Cardio is included, but lifting remains the priority.", "sessions": [{"time": "MORNING · SESSION 9", "title": "Upper-body technique + volume", "level": "Controlled volume", "items": [["Dumbbell bench press", "2 × 8–12", "Chest", "90 sec", "Machine chest press; push-up", "dumbbell bench press proper form"], ["One-arm cable row", "2 × 10–12 / side", "Back", "75–90 sec", "One-arm dumbbell row; machine row", "single arm cable row proper form"], ["Machine lateral raise", "2 × 12–20", "Side delts", "60 sec", "Cable lateral raise; dumbbell lateral raise", "machine lateral raise proper form"], ["Face pull", "2 × 12–15", "Rear delts / upper back", "60 sec", "Reverse pec deck; band face pull", "face pull proper form"]]}, {"time": "EVENING · SESSION 10", "title": "Arms + abs + cardio", "level": "Accessory + conditioning", "items": [["EZ-bar curl", "2 × 8–12", "Biceps", "60 sec", "Dumbbell curl; cable curl", "ez bar curl proper form"], ["Rope triceps pushdown", "2 × 10–15", "Triceps", "60 sec", "Band pushdown; cable bar pushdown", "rope triceps pushdown proper form"], ["Hammer curl", "2 × 10–12", "Brachialis / forearms", "60 sec", "Rope hammer curl; cross-body curl", "hammer curl proper form"], ["Pallof press", "2 × 10–12 / side", "Core", "45 sec", "Dead bug; bird dog", "pallof press proper form"], ["Elliptical or bike", "8–10 min", "Cardio · easy/moderate", "—", "Indoor walk; easy stationary cycle", "elliptical cardio workout"]]}]}, {"day": "Sunday", "tag": "LOWER POSTERIOR + FULL-BODY LIGHT", "focus": "Finish the week with a controlled posterior-chain session and a light resistance circuit. Keep several reps in reserve.", "sessions": [{"time": "MORNING · SESSION 11", "title": "Posterior chain + calves", "level": "Moderate strength", "items": [["Hip thrust", "3 × 8–10", "Glutes", "90–120 sec", "Glute bridge; Smith hip thrust", "hip thrust proper form"], ["Seated leg curl", "3 × 10–15", "Hamstrings", "60–90 sec", "Lying leg curl; stability-ball curl", "seated leg curl proper form"], ["Dumbbell Romanian deadlift", "2 × 10–12", "Hamstrings / glutes", "90 sec", "Cable pull-through; light barbell RDL", "dumbbell romanian deadlift proper form"], ["Standing calf raise", "2 × 12–15", "Calves", "60 sec", "Seated calf raise; single-leg calf raise", "standing calf raise proper form"]]}, {"time": "EVENING · SESSION 12", "title": "Light full-body resistance + core", "level": "Low-fatigue finish", "items": [["Machine chest press", "2 × 12–15", "Chest", "60–75 sec", "Incline push-up; dumbbell floor press", "machine chest press proper form"], ["Chest-supported machine row", "2 × 12–15", "Back", "60–75 sec", "Seated cable row; band row", "machine chest supported row form"], ["Goblet squat", "2 × 12–15", "Quads / glutes", "60–75 sec", "Bodyweight squat; light leg press", "goblet squat proper form"], ["Bird dog", "2 × 8–10 / side", "Core", "45 sec", "Dead bug; quadruped reach", "bird dog exercise proper form"], ["Easy stationary bike", "8 min", "Cardio · recovery pace", "—", "Elliptical; gentle indoor walk", "easy stationary bike recovery"]]}]}];
-const nav=document.getElementById('daynav'), workoutEl=document.getElementById('workout');
-let selected=0;const key='myTrainingHybridChecks_v3';
-function getChecks(){try{return JSON.parse(localStorage.getItem(key)||'{}')}catch(e){return {}}}
-function saveChecks(v){try{localStorage.setItem(key,JSON.stringify(v))}catch(e){}}
-function dayKey(i){return workouts[i].day}
-function dayChecks(i){return getChecks()[dayKey(i)]||[]}
-function renderNav(){nav.innerHTML=workouts.map((d,i)=>`<button class="daybtn ${i===selected?'active':''}" data-day="${i}">${d.day.slice(0,3)}</button>`).join('');nav.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{selected=Number(b.dataset.day);renderNav();renderWorkout()}))}
-function googleLink(q){return 'https://www.google.com/search?tbm=isch&q='+encodeURIComponent(q)}
-function renderWorkout(){
- const d=workouts[selected],checks=dayChecks(selected),isRest=d.day==='Tuesday';
- let html=`<div class="dayhead"><div><div class="kicker">${d.day}</div><h2>${isRest?'Recovery day':d.day+' · '+d.tag}</h2><p>${d.focus}</p></div><span class="tag ${isRest?'resttag':''}">${d.tag}</span></div>`;
- if(isRest){html+=`<div class="note warn"><b>Full rest day.</b> No lifting or planned cardio. Eat normally, hydrate and sleep. Gentle mobility is optional.</div>`}
- d.sessions.forEach((s,si)=>{
- html+=`<section class="session"><div class="sessionhead"><h3>${s.time} — ${s.title}</h3><span>${s.level}</span></div><p class="session-sub">Approx. 45 min · Leave 1–3 reps in reserve · No forced reps</p>`;
- s.items.forEach((x,j)=>{const id=`${selected}-${si}-${j}`,done=checks.includes(id);
- html+=`<article class="exercise"><div class="ex-top"><input class="check" type="checkbox" aria-label="Mark ${x[0]} complete" data-id="${id}" ${done?'checked':''}><div class="ex-main"><div class="ex-name">${x[0]}</div><div class="ex-meta">${x[2]} · ${x[1]} · Rest ${x[3]}</div></div></div>
- <div class="ex-actions"><a class="linkbtn primary" href="${googleLink(x[5])}" target="_blank" rel="noopener">Google Images ↗</a><button class="alt-toggle" data-alt="${id}" aria-expanded="false">Equipment alternatives +</button></div>
- <div class="alternatives" id="alt-${id}"><b>If equipment is unavailable:</b> ${x[4]}</div></article>`});
- html+=`</section>`});
- html+=`<div class="actions"><button class="reset" id="resetDay">Reset this day's checklist</button></div><div class="note">Check off exercises after completing them. Progress is saved in this browser on this device; it does not sync between devices.</div>`;
- workoutEl.innerHTML=html;
- workoutEl.querySelectorAll('.check').forEach(c=>c.addEventListener('change',()=>{const all=getChecks(),arr=all[dayKey(selected)]||[],id=c.dataset.id;all[dayKey(selected)]=c.checked?[...new Set([...arr,id])]:arr.filter(v=>v!==id);saveChecks(all);updateProgress()}));
- workoutEl.querySelectorAll('.alt-toggle').forEach(b=>b.addEventListener('click',()=>{const box=document.getElementById('alt-'+b.dataset.alt),open=box.classList.toggle('open');b.textContent=open?'Equipment alternatives −':'Equipment alternatives +';b.setAttribute('aria-expanded',String(open))}));
- document.getElementById('resetDay').addEventListener('click',()=>{const all=getChecks();delete all[dayKey(selected)];saveChecks(all);renderWorkout()});updateProgress();
+(function(){
+"use strict";
+var DAYS=[
+{d:"Monday",tag:"Chest + Triceps",s:[
+{t:"AM",n:"Chest strength",e:[
+["Barbell bench press","3 × 5–8","Chest, triceps","2–3 min","Dumbbell bench press"],
+["Incline dumbbell press","3 × 8–10","Upper chest","90–120 sec","Incline machine press"],
+["Cable fly","2 × 12–15","Chest","60–90 sec","Pec deck"],
+["Push-ups","2 sets","Chest, triceps","60–90 sec","Incline push-ups"]]},
+{t:"PM",n:"Triceps + abs",e:[
+["Close-grip bench press","2 × 6–10","Triceps, chest","2–3 min","Smith machine close-grip press"],
+["Rope pushdown","3 × 10–15","Triceps","60–90 sec","Straight-bar pushdown"],
+["Overhead cable extension","2 × 12–15","Triceps (long head)","60–90 sec","Dumbbell overhead extension"],
+["Cable crunch","3 × 12–15","Abs","60 sec","Machine crunch"]]}]},
+{d:"Tuesday",tag:"Full rest",rest:true,s:[]},
+{d:"Wednesday",tag:"Back + Biceps",s:[
+{t:"AM",n:"Back strength",e:[
+["Lat pulldown","3 × 6–10","Lats","2 min","Assisted pull-up machine"],
+["Chest-supported row","3 × 8–10","Mid-back","90–120 sec","Seated cable row"],
+["Single-arm cable row","2 × 10–12","Back, lats","60–90 sec","One-arm dumbbell row"],
+["Straight-arm pulldown","2 × 12–15","Lats","60–90 sec","Dumbbell pullover"]]},
+{t:"PM",n:"Biceps + easy cardio",e:[
+["EZ-bar curl","3 × 8–10","Biceps","60–90 sec","Dumbbell curl"],
+["Incline dumbbell curl","2 × 10–12","Biceps (long head)","60–90 sec","Cable curl"],
+["Hammer curl","2 × 10–12","Brachialis, forearms","60–90 sec","Rope hammer curl"],
+["Stationary bike","8–10 minutes","Cardio (easy)","—","Elliptical"]]}]},
+{d:"Thursday",tag:"Legs + Shoulders",s:[
+{t:"AM",n:"Legs strength",e:[
+["Back squat","3 × 5–8","Quads, glutes","2–3 min","Hack squat"],
+["Romanian deadlift","3 × 6–10","Hamstrings, glutes","2–3 min","Dumbbell Romanian deadlift"],
+["Leg press","2 × 10–12","Quads, glutes","90–120 sec","Hack squat"],
+["Standing calf raise","3 × 10–15","Calves","60–90 sec","Leg press calf raise"]]},
+{t:"PM",n:"Shoulders + abs",e:[
+["Seated dumbbell shoulder press","2 × 6–10","Shoulders","2 min","Machine shoulder press"],
+["Cable lateral raise","3 × 12–20","Side delts","60–90 sec","Dumbbell lateral raise"],
+["Reverse pec deck","3 × 12–15","Rear delts","60–90 sec","Cable rear-delt fly"],
+["Hanging knee raise","3 × 10–15","Abs, hip flexors","60 sec","Captain's chair knee raise"]]}]},
+{d:"Friday",tag:"Chest + Triceps",s:[
+{t:"AM",n:"Chest hypertrophy",e:[
+["Incline Smith machine press","3 × 8–10","Upper chest","90–120 sec","Incline dumbbell press"],
+["Machine chest press","3 × 10–12","Chest","90 sec","Dumbbell floor press"],
+["Pec deck","2 × 12–15","Chest","60–90 sec","Cable fly"],
+["Low-to-high cable fly","2 × 12–15","Upper chest","60–90 sec","Incline dumbbell fly"]]},
+{t:"PM",n:"Triceps + Zone 2 cardio",e:[
+["EZ-bar skull crusher","2 × 8–12","Triceps","60–90 sec","Dumbbell skull crusher"],
+["Single-arm cable pushdown","3 × 10–15","Triceps","60–90 sec","Band pushdown"],
+["Overhead rope extension","2 × 12–15","Triceps (long head)","60–90 sec","Dumbbell overhead extension"],
+["Stationary bike","10–12 minutes","Cardio (Zone 2)","—","Elliptical"]]}]},
+{d:"Saturday",tag:"Back + Biceps",s:[
+{t:"AM",n:"Back hypertrophy",e:[
+["Seated cable row","3 × 8–12","Mid-back","90 sec","Machine row"],
+["Neutral-grip pulldown","3 × 10–12","Lats","90 sec","Neutral-grip assisted pull-up"],
+["Machine high row","2 × 10–12","Upper back","60–90 sec","One-arm dumbbell row"],
+["Reverse-grip pulldown","2 × 12–15","Lats, biceps","60–90 sec","Assisted chin-up"]]},
+{t:"PM",n:"Biceps volume",e:[
+["Preacher curl","3 × 8–12","Biceps","60–90 sec","Dumbbell preacher curl"],
+["Cable curl","2 × 12–15","Biceps","60–90 sec","Dumbbell curl"],
+["Cross-body hammer curl","2 × 10–12","Brachialis, forearms","60–90 sec","Cable hammer curl"],
+["Reverse curl","2 × 12–15","Forearms","60–90 sec","Reverse cable curl"]]}]},
+{d:"Sunday",tag:"Legs + Shoulders",s:[
+{t:"AM",n:"Legs hypertrophy",e:[
+["Hack squat","3 × 8–12","Quads, glutes","2 min","Leg press"],
+["Seated leg curl","3 × 10–15","Hamstrings","60–90 sec","Lying leg curl"],
+["Bulgarian split squat","2 × 8–10","Quads, glutes","90 sec","Reverse lunge"],
+["Leg extension","2 × 12–15","Quads","60 sec","Spanish squat"],
+["Seated calf raise","2 × 12–15","Calves","60 sec","Standing calf raise"]]},
+{t:"PM",n:"Shoulders + core + easy cardio",e:[
+["Machine lateral raise","3 × 12–20","Side delts","60 sec","Cable lateral raise"],
+["Cable rear-delt fly","2 × 12–15","Rear delts","60 sec","Reverse pec deck"],
+["Face pull","2 × 12–15","Rear delts, upper back","60 sec","Band face pull"],
+["Plank","3 × 30–45 seconds","Core","45 sec","Dead bug"],
+["Easy bike","8–10 minutes","Cardio (easy)","—","Elliptical"]]}]}
+];
+var KEY="hybrid_progress_v1";
+var state={};
+var sel=0;
+function load(){try{var r=localStorage.getItem(KEY);state=r?JSON.parse(r)||{}:{}}catch(e){state={}}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+function gimg(q){return "https://www.google.com/search?tbm=isch&q="+encodeURIComponent(q)}
+function idOf(di,si,ei){return di+"-"+si+"-"+ei}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function dayCount(di){var n=0;DAYS[di].s.forEach(function(s){n+=s.e.length});return n}
+function dayDone(di){var n=0;DAYS[di].s.forEach(function(s,si){s.e.forEach(function(x,ei){if(state[idOf(di,si,ei)])n++})});return n}
+function pct(a,b){return b?Math.round(a/b*100):0}
+function renderNav(){
+ var nav=document.getElementById("daynav");
+ nav.innerHTML=DAYS.map(function(d,i){
+  var sub=d.rest?"Rest":pct(dayDone(i),dayCount(i))+"%";
+  return '<button class="daybtn'+(i===sel?" active":"")+(d.rest?" rest":"")+'" data-i="'+i+'" aria-pressed="'+(i===sel)+'">'+d.d.slice(0,3)+'<small>'+sub+'</small></button>';
+ }).join("");
 }
-function updateProgress(){const d=workouts[selected],all=d.sessions.flatMap(s=>s.items),done=dayChecks(selected).length;document.getElementById('progressText').textContent=d.day==='Tuesday'?'Rest day':`${done} / ${all.length} exercises complete`;document.getElementById('progressBar').style.width=(all.length?done/all.length*100:0)+'%'}
-document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t===b));document.getElementById('nutrition').hidden=b.dataset.tab!=='nutrition';document.getElementById('guide').hidden=b.dataset.tab!=='guide'}));
-renderNav();renderWorkout();
-</script></body></html>
+function renderDay(){
+ var d=DAYS[sel],h="";
+ var tot=dayCount(sel),done=dayDone(sel);
+ h+='<div class="dayhead"><h3>'+d.d+'</h3><p>'+esc(d.tag)+'</p></div>';
+ if(d.rest){
+  h+='<div class="rest-card"><div class="big">🛌</div><h4>Full rest day</h4><p>No lifting and no planned cardio. Eat your protein, drink water and sleep well. Easy walking is fine. This is when your training actually pays off.</p></div>';
+  h+='<div class="note">Tuesday still counts: keep creatine going (3–5 g) and hit your protein target.</div>';
+ }else{
+  h+='<div class="dayprog"><div class="row"><span>Day progress</span><b>'+pct(done,tot)+'% · '+done+' / '+tot+'</b></div><div class="bar"><i style="width:'+pct(done,tot)+'%"></i></div></div>';
+  d.s.forEach(function(s,si){
+   h+='<section class="session"><div class="shead"><span class="pill '+(s.t==="AM"?"am":"pm")+'">'+(s.t==="AM"?"MORNING":"EVENING")+'</span><h4>'+esc(s.n)+'</h4></div>';
+   h+='<p class="smeta">~45 min including 5 min warm-up · leave 1–2 reps in reserve</p>';
+   s.e.forEach(function(x,ei){
+    var id=idOf(sel,si,ei),on=!!state[id];
+    h+='<article class="ex'+(on?" done":"")+'"><div class="extop"><input type="checkbox" class="check" data-id="'+id+'" aria-label="Mark '+esc(x[0])+' complete"'+(on?" checked":"")+'><div class="exbody"><div class="exname">'+esc(x[0])+'</div><div class="chips"><span class="chip sets">'+esc(x[1])+'</span><span class="chip">🎯 '+esc(x[2])+'</span><span class="chip">⏱ Rest: '+esc(x[3])+'</span></div></div></div>';
+    h+='<div class="exact"><a class="btn p" target="_blank" rel="noopener noreferrer" href="'+gimg(x[0]+" proper form")+'">See form ↗</a><button class="btn" data-alt="'+id+'" aria-expanded="false">Alternative ▾</button></div>';
+    h+='<div class="alt" id="alt-'+id+'" hidden><b>Equipment alternative</b><div class="altname">'+esc(x[4])+'</div><a class="btn p" target="_blank" rel="noopener noreferrer" href="'+gimg(x[4]+" proper form")+'">See alternative form ↗</a></div></article>';
+   });
+   h+='</section>';
+  });
+  if(sel===0||sel===3||sel===5)h+='<div class="note"><b>Tip:</b> 2–3 min rest on heavy lifts is not wasted time. It is what lets you lift heavy again.</div>';
+ }
+ document.getElementById("daycard").innerHTML=h;
+}
+function renderWeek(){
+ var t=0,d=0;
+ DAYS.forEach(function(x,i){t+=dayCount(i);d+=dayDone(i)});
+ var p=pct(d,t);
+ document.getElementById("weekText").textContent=p+"%";
+ document.getElementById("weekBar").style.width=p+"%";
+ document.getElementById("weekCount").textContent=d+" of "+t+" exercises complete";
+}
+function refresh(){renderNav();renderDay();renderWeek()}
+document.getElementById("daynav").addEventListener("click",function(e){
+ var b=e.target.closest("button[data-i]");if(!b)return;
+ sel=+b.dataset.i;refresh();
+ var a=document.querySelector(".daybtn.active");if(a&&a.scrollIntoView)a.scrollIntoView({inline:"center",block:"nearest"});
+});
+var card=document.getElementById("daycard");
+card.addEventListener("change",function(e){
+ var c=e.target;if(!c.classList.contains("check"))return;
+ if(c.checked)state[c.dataset.id]=true;else delete state[c.dataset.id];
+ save();
+ var y=window.scrollY;
+ refresh();
+ window.scrollTo(0,y);
+});
+card.addEventListener("click",function(e){
+ var b=e.target.closest("button[data-alt]");if(!b)return;
+ var box=document.getElementById("alt-"+b.dataset.alt);
+ var open=box.hidden;box.hidden=!open;
+ b.setAttribute("aria-expanded",String(open));
+ b.textContent=open?"Alternative ▴":"Alternative ▾";
+});
+document.getElementById("resetAll").addEventListener("click",function(){
+ if(window.confirm("Reset ALL progress for the whole week? This cannot be undone.")){
+  state={};save();refresh();
+ }
+});
+function show(v){
+ document.querySelectorAll(".view").forEach(function(s){s.classList.toggle("active",s.id==="view-"+v)});
+ document.querySelectorAll(".bottomnav button").forEach(function(b){b.classList.toggle("active",b.dataset.view===v)});
+ window.scrollTo(0,0);
+ try{history.replaceState(null,"","#"+v)}catch(e){}
+}
+document.querySelector(".bottomnav").addEventListener("click",function(e){
+ var b=e.target.closest("button[data-view]");if(b)show(b.dataset.view);
+});
+load();
+var js=new Date().getDay();
+sel=(js+6)%7;
+refresh();
+var hv=(location.hash||"").slice(1);
+if(["train","nutrition","cardio","recovery"].indexOf(hv)>-1)show(hv);
+})();
+</script>
+</body>
+</html>
