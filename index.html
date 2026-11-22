@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101511">
+<meta name="description" content="A personal mobile-friendly workout and nutrition dashboard.">
+<title>My Training | Personal Gym Companion</title>
+<style>
+:root{color-scheme:dark;--bg:#0d120f;--panel:#171f19;--panel2:#202b22;--line:#2e3b31;--text:#f3f7f2;--muted:#aab8ad;--lime:#c5f477;--amber:#ffc47a;--blue:#a8c9ff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 80% -12%,#263c2a 0,transparent 38%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+button,a{font:inherit}a{color:inherit}.app{max-width:1000px;margin:auto;padding:16px 15px calc(84px + env(safe-area-inset-bottom))}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:5px 1px 18px}.logo{font-weight:900;letter-spacing:.12em;font-size:12px;color:var(--lime)}.top small{color:var(--muted);font-size:11px}
+.hero{border:1px solid #3a4a3c;border-radius:22px;padding:23px;background:linear-gradient(130deg,#243426,#171e19 68%);box-shadow:0 12px 32px #0003}
+.kicker{font-size:10px;letter-spacing:.16em;color:var(--lime);font-weight:900;text-transform:uppercase}
+h1{font-size:clamp(31px,8vw,48px);line-height:1.02;letter-spacing:-.05em;margin:9px 0}
+.hero p{margin:0;color:var(--muted);font-size:13px;max-width:570px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:20px}.stat{padding:10px;background:#10171299;border:1px solid #3a493c;border-radius:13px}.stat span{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.1em}.stat b{font-size:18px}
+.progress-wrap{margin-top:18px}.progress-label{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;margin-bottom:7px}.bar{height:7px;border-radius:20px;background:#303c32;overflow:hidden}.bar>i{display:block;height:100%;width:0;background:var(--lime);border-radius:20px;transition:width .2s}
+.section-title{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:26px 2px 12px}.section-title h2{font-size:20px;margin:0;letter-spacing:-.03em}.section-title small{color:var(--muted);font-size:11px}
+.daynav{display:flex;gap:7px;overflow:auto;padding:2px 1px 12px;scrollbar-width:none}.daynav::-webkit-scrollbar{display:none}.daybtn{flex:0 0 auto;border:1px solid var(--line);border-radius:12px;padding:9px 13px;background:var(--panel);color:var(--muted);font-size:12px;font-weight:750;min-height:42px}.daybtn.active{background:var(--lime);color:#152015;border-color:var(--lime)}
+.daycard{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:17px}.dayhead{display:flex;justify-content:space-between;gap:12px;align-items:start}.dayhead h2{margin:2px 0 4px;font-size:22px}.dayhead p{margin:0;color:var(--muted);font-size:12px}.tag{background:#2b3d2d;color:var(--lime);border-radius:100px;padding:6px 9px;font-size:10px;font-weight:850;white-space:nowrap}.resttag{background:#463522;color:var(--amber)}
+.exercise{border-top:1px solid var(--line);padding:14px 0 2px;margin-top:13px}.ex-top{display:flex;align-items:flex-start;gap:10px}.check{appearance:none;width:22px;height:22px;flex:0 0 22px;border:1.5px solid #66766a;border-radius:7px;background:#111813;margin:1px 0 0;display:grid;place-items:center}.check:checked{background:var(--lime);border-color:var(--lime)}.check:checked:after{content:"✓";color:#172016;font-weight:950;font-size:15px}
+.ex-main{min-width:0;flex:1}.ex-name{font-size:15px;font-weight:800;line-height:1.25}.ex-meta{font-size:11px;color:var(--muted);margin-top:4px}.ex-actions{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0 0 32px}
+.linkbtn,.alt-toggle,.reset{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:7px 10px;border:1px solid var(--line);border-radius:10px;background:#202a22;color:#dce8dc;text-decoration:none;font-size:11px;font-weight:750}
+.linkbtn.primary{border-color:#58703f;color:var(--lime)}.alt-toggle{cursor:pointer}.alternatives{display:none;margin:10px 0 0 32px;padding:11px 12px;border:1px solid #344237;background:#121914;border-radius:12px;color:var(--muted);font-size:12px}.alternatives.open{display:block}.alternatives b{color:var(--text)}
+.restbox{margin-top:16px;padding:16px;border:1px solid #665033;border-radius:15px;background:#2a2319}.restbox h3{margin:0 0 5px;color:var(--amber)}.restbox p{margin:0;color:#d3c1a5;font-size:12px}
+.actions{display:flex;gap:8px;margin-top:13px}.reset{cursor:pointer;min-height:40px}.note{margin-top:13px;padding:12px;border-radius:12px;background:#202a22;color:var(--muted);font-size:12px}
+.tabs{display:flex;gap:8px;margin-top:24px}.tab{flex:1;min-height:44px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--muted);font-weight:800;font-size:12px}.tab.active{background:var(--lime);color:#172016;border-color:var(--lime)}
+.panel{margin-top:12px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px}.panel h3{margin:0 0 12px;font-size:17px}.macrogrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.macro{background:var(--panel2);padding:12px;border-radius:12px}.macro small{display:block;color:var(--muted);font-size:10px}.macro b{font-size:19px}.food{width:100%;border-collapse:collapse;font-size:12px}.food td{padding:9px 0;border-bottom:1px solid var(--line)}.food td:last-child{text-align:right;color:var(--muted)}
+.bottomnav{position:fixed;bottom:0;left:0;right:0;z-index:5;padding:9px 12px calc(9px + env(safe-area-inset-bottom));background:#101712ed;border-top:1px solid var(--line);backdrop-filter:blur(12px);display:flex;justify-content:center;gap:10px}.bottomnav a{flex:1;max-width:220px;text-align:center;text-decoration:none;color:var(--muted);font-size:11px;font-weight:800;padding:8px}
+footer{text-align:center;color:#748278;font-size:10px;padding:22px 0 4px}
+@media(min-width:760px){.app{padding:26px 24px 50px}.hero{padding:30px}.daycard{padding:22px}.exercise{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px}.ex-actions{margin:0}.alternatives{grid-column:1/-1;margin:0}.ex-name{font-size:16px}}
+@media(max-width:430px){.stats{grid-template-columns:repeat(2,1fr)}.hero{padding:19px}.dayhead{display:block}.tag{display:inline-block;margin-top:10px}.ex-actions{margin-left:32px}.linkbtn,.alt-toggle{min-height:39px}.section-title{align-items:start;flex-direction:column;gap:3px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><div class="logo">MY TRAINING / COMPANION</div><small>PERSONAL PLAN · V1.1</small></header>
+<section class="hero" id="home">
+ <div class="kicker">Body recomposition · Train smart</div>
+ <h1>Build strength.<br>Keep showing up.</h1>
+ <p>Your gym-day guide with exercise demos, equipment swaps and a simple session checklist. Running is paused for now.</p>
+ <div class="stats">
+  <div class="stat"><span>Age</span><b>21</b></div><div class="stat"><span>Height</span><b>5'11"</b></div>
+  <div class="stat"><span>Weight</span><b>84 kg</b></div><div class="stat"><span>Daily steps</span><b>~8,000</b></div>
+ </div>
+ <div class="progress-wrap"><div class="progress-label"><span>Today's session</span><span id="progressText">0 / 0 complete</span></div><div class="bar"><i id="progressBar"></i></div></div>
+</section>
+<div class="section-title"><h2>Today's training</h2><small>Tap a day · tick sets as you finish</small></div>
+<nav class="daynav" id="daynav" aria-label="Choose training day"></nav>
+<section class="daycard" id="workout"></section>
+<div class="tabs" role="tablist"><button class="tab active" data-tab="nutrition">Nutrition</button><button class="tab" data-tab="guidelines">Training guide</button></div>
+<section class="panel" id="nutrition">
+ <h3>Starting daily targets</h3><div class="macrogrid">
+  <div class="macro"><small>Calories · provisional</small><b>2,500–2,600</b></div><div class="macro"><small>Protein</small><b>160 g</b></div>
+  <div class="macro"><small>Carbs · estimate</small><b>280–300 g</b></div><div class="macro"><small>Fat · estimate</small><b>75–85 g</b></div>
+ </div>
+ <div class="note">These are initial estimates, not a measured prescription. Adjust after 2–3 weeks using average body weight, waist trend, hunger, recovery and gym performance.</div>
+ <h3 style="margin-top:18px">Your planned food basics</h3>
+ <table class="food"><tr><td>Whole-wheat rotis</td><td>8 / day</td></tr><tr><td>Full-cream milk</td><td>1 litre</td></tr><tr><td>Whole eggs</td><td>4 / day</td></tr><tr><td>Whey powder</td><td>1 scoop (27 g)</td></tr><tr><td>Salted lassi</td><td>400 ml</td></tr><tr><td>Sabji</td><td>3 katoris</td></tr></table>
+ <div class="note">Actual nutrition depends on roti flour weight, milk and whey labels, curd quantity in lassi and cooking oil. Verify your protein total from labels and weighed portions.</div>
+</section>
+<section class="panel" id="guidelines" hidden>
+ <h3>How to use this plan</h3>
+ <p style="color:var(--muted);font-size:13px">Warm up for 5–10 minutes and do lighter warm-up sets before your first compound lift. Use controlled reps and stop if you feel sharp pain.</p>
+ <table class="food"><tr><td>Compound exercise rest</td><td>2–3 min</td></tr><tr><td>Isolation exercise rest</td><td>60–120 sec</td></tr><tr><td>Effort</td><td>Leave 1–3 reps in reserve</td></tr><tr><td>Progression</td><td>Reach top of rep range, then add a small load</td></tr><tr><td>Weekly structure</td><td>6 gym days + Tuesday rest</td></tr></table>
+ <div class="note">Don't add extra exercises just to chase calorie burn. Keep strength work recoverable, maintain comfortable daily steps, and use nutrition consistency for the calorie deficit. When outdoor air quality is suitable, add running gradually rather than suddenly.</div>
+</section>
+<footer>TRAIN SMART · RECOVER WELL · STAY CONSISTENT</footer>
+</div>
+<nav class="bottomnav"><a href="#home">⌂ HOME</a><a href="#workout">▤ WORKOUT</a><a href="#nutrition">◉ NUTRITION</a></nav>
+<script>
+const workouts = [{"day": "Monday", "tag": "PUSH A · CHEST FOCUS", "title": "Chest, shoulders & triceps", "focus": "Chest is the priority; front/side delts and triceps assist.", "items": [["Barbell bench press", "3 × 6–10", "Chest", "2–3 min", "Dumbbell bench press; machine chest press; push-ups", "barbell bench press proper form"], ["Incline dumbbell press", "3 × 8–12", "Upper chest", "2 min", "Incline machine press; low-incline Smith press; feet-elevated push-ups", "incline dumbbell press proper form"], ["Cable chest fly", "2 × 12–15", "Chest", "60–90 sec", "Pec-deck machine; dumbbell fly on a bench; band fly", "cable chest fly exercise form"], ["Dumbbell shoulder press", "2 × 8–12", "Shoulders", "2 min", "Seated machine press; landmine press; pike push-up", "dumbbell shoulder press proper form"], ["Lateral raise", "3 × 12–20", "Side delts", "60–90 sec", "Cable lateral raise; lateral raise machine; light resistance-band raise", "dumbbell lateral raise proper form"], ["Triceps pushdown", "2 × 10–15", "Triceps", "60–90 sec", "Resistance-band pushdown; close-grip push-up; dumbbell kickback", "triceps cable pushdown proper form"]]}, {"day": "Tuesday", "tag": "REST DAY", "title": "Recover and recharge", "focus": "No planned gym session. Let muscles, joints and your nervous system recover.", "items": [["Easy everyday movement", "Comfortable", "General recovery", "—", "Normal daily movement; no need to force extra cardio", "gentle walking recovery"], ["Gentle mobility (optional)", "5–10 min", "Mobility", "—", "Easy, pain-free joint movements", "full body gentle mobility routine"]]}, {"day": "Wednesday", "tag": "PULL A · BACK FOCUS", "title": "Back, rear delts & biceps", "focus": "Lats and mid-back are the priority; rear delts and arms assist.", "items": [["Lat pulldown", "3 × 8–12", "Lats", "2 min", "Assisted pull-up; resistance-band pulldown; one-arm cable pulldown", "lat pulldown proper form"], ["Seated cable row", "3 × 8–12", "Mid-back", "2 min", "Chest-supported dumbbell row; machine row; resistance-band row", "seated cable row proper form"], ["Chest-supported row", "2 × 10–12", "Upper back", "90–120 sec", "Incline-bench dumbbell row; machine chest-supported row", "chest supported dumbbell row form"], ["Face pull", "2 × 12–15", "Rear delts / upper back", "60–90 sec", "Band face pull; reverse pec deck; bent-over rear-delt raise", "face pull exercise proper form"], ["Dumbbell curl", "2 × 10–12", "Biceps", "60–90 sec", "Cable curl; barbell curl; resistance-band curl", "dumbbell biceps curl proper form"], ["Hammer curl", "2 × 10–12", "Biceps / brachialis", "60–90 sec", "Rope hammer curl; cross-body dumbbell curl", "hammer curl proper form"]]}, {"day": "Thursday", "tag": "LEGS A · QUAD FOCUS", "title": "Quads, hamstrings, glutes & calves", "focus": "Quadriceps are the priority, with balanced posterior-chain work.", "items": [["Squat", "3 × 6–10", "Quads / glutes", "2–3 min", "Goblet squat; hack squat; leg press (pain-free range)", "barbell squat proper form"], ["Leg press", "2 × 10–12", "Quads / glutes", "2 min", "Goblet squat; Smith squat; supported split squat", "leg press proper form"], ["Leg extension", "2 × 12–15", "Quads", "60–90 sec", "Spanish squat; banded knee extension; controlled step-up", "leg extension machine proper form"], ["Romanian deadlift", "2 × 8–10", "Hamstrings / glutes", "2 min", "Dumbbell RDL; cable pull-through; hip hinge with band", "romanian deadlift proper form"], ["Standing calf raise", "3 × 10–15", "Calves", "60–90 sec", "Single-leg bodyweight calf raise on a step; calf-raise machine", "standing calf raise proper form"]]}, {"day": "Friday", "tag": "PUSH B · SHOULDER FOCUS", "title": "Shoulders, chest & triceps", "focus": "Shoulders are the priority; chest and triceps get moderate work.", "items": [["Overhead shoulder press", "3 × 6–10", "Shoulders", "2–3 min", "Dumbbell shoulder press; machine press; landmine press", "overhead shoulder press proper form"], ["Dumbbell lateral raise", "3 × 12–20", "Side delts", "60–90 sec", "Cable lateral raise; lateral-raise machine; resistance-band raise", "dumbbell lateral raise proper form"], ["Incline machine press", "3 × 8–12", "Upper chest", "2 min", "Incline dumbbell press; Smith incline press; feet-elevated push-up", "incline chest press machine form"], ["Pec deck", "2 × 12–15", "Chest", "60–90 sec", "Cable fly; band fly; dumbbell fly", "pec deck machine proper form"], ["Overhead triceps extension", "2 × 10–15", "Triceps", "60–90 sec", "Cable rope overhead extension; single dumbbell extension; band extension", "overhead triceps extension proper form"]]}, {"day": "Saturday", "tag": "PULL B · BACK THICKNESS", "title": "Back, rear delts & biceps", "focus": "Upper-back thickness and lats are the priority.", "items": [["Barbell row", "3 × 6–10", "Mid-back / lats", "2–3 min", "Chest-supported row; seated cable row; one-arm dumbbell row", "barbell bent over row proper form"], ["Close-grip lat pulldown", "2 × 8–12", "Lats", "2 min", "Neutral-grip pulldown; assisted chin-up; band pulldown", "close grip lat pulldown proper form"], ["One-arm dumbbell row", "2 × 10–12", "Lats / mid-back", "90–120 sec", "Single-arm cable row; machine row; band row", "one arm dumbbell row proper form"], ["Reverse pec deck", "2 × 12–15", "Rear delts", "60–90 sec", "Cable rear-delt fly; bent-over dumbbell reverse fly; band pull-apart", "reverse pec deck proper form"], ["Preacher curl", "2 × 10–12", "Biceps", "60–90 sec", "Standing dumbbell curl; cable curl; concentration curl", "preacher curl proper form"], ["Cable curl", "2 × 12–15", "Biceps", "60–90 sec", "Dumbbell curl; EZ-bar curl; band curl", "cable biceps curl proper form"]]}, {"day": "Sunday", "tag": "LEGS B · HAMSTRINGS + CORE", "title": "Hamstrings, glutes, legs & core", "focus": "Hamstrings and glutes are the priority; finish with moderate core work.", "items": [["Romanian deadlift", "3 × 8–10", "Hamstrings / glutes", "2–3 min", "Dumbbell RDL; cable pull-through; hip thrust", "romanian deadlift proper form"], ["Lying leg curl", "3 × 10–15", "Hamstrings", "60–90 sec", "Seated leg curl; stability-ball leg curl; sliding towel leg curl", "lying leg curl machine proper form"], ["Bulgarian split squat", "2 × 8–10 each leg", "Quads / glutes", "90–120 sec", "Reverse lunge; supported split squat; step-up", "bulgarian split squat proper form"], ["Hip thrust", "2 × 8–12", "Glutes", "90–120 sec", "Glute bridge; Smith hip thrust; cable pull-through", "barbell hip thrust proper form"], ["Seated calf raise", "2 × 12–15", "Calves", "60–90 sec", "Bent-knee bodyweight calf raise; calf-raise machine", "seated calf raise proper form"], ["Cable crunch", "2 × 12–15", "Abs", "60 sec", "Weighted crunch; reverse crunch; dead bug", "cable crunch proper form"], ["Hanging knee raise", "2 × 10–15", "Abs", "60 sec", "Captain's-chair knee raise; reverse crunch; lying knee tuck", "hanging knee raise proper form"]]}];
+const nav=document.getElementById('daynav'), workoutEl=document.getElementById('workout');
+let selected=0;
+const key='myTrainingChecks_v2';
+function getChecks(){try{return JSON.parse(localStorage.getItem(key)||'{}')}catch(e){return {}}}
+function saveChecks(v){try{localStorage.setItem(key,JSON.stringify(v))}catch(e){}}
+function dayChecks(i){return getChecks()[workouts[i].day]||[]}
+function renderNav(){
+ nav.innerHTML=workouts.map((d,i)=>`<button class="daybtn ${i===selected?'active':''}" data-day="${i}">${d.day.slice(0,3)}</button>`).join('');
+ nav.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{selected=Number(b.dataset.day);renderNav();renderWorkout()}));
+}
+function googleLink(q){return 'https://www.google.com/search?tbm=isch&q='+encodeURIComponent(q)}
+function renderWorkout(){
+ const d=workouts[selected],checks=dayChecks(selected);
+ const isRest=d.day==='Tuesday';
+ workoutEl.innerHTML=`<div class="dayhead"><div><div class="kicker">${d.day}</div><h2>${d.title}</h2><p>${d.focus}</p></div><span class="tag ${isRest?'resttag':''}">${d.tag}</span></div>
+ ${isRest?`<div class="restbox"><h3>Rest is part of the plan.</h3><p>No planned gym workout today. Keep normal comfortable movement, optional gentle mobility, eat well and prioritize sleep. Don't force extra cardio.</p></div>`:
+ d.items.map((x,j)=>`<article class="exercise">
+  <div class="ex-top"><input class="check" type="checkbox" aria-label="Mark ${x[0]} complete" data-index="${j}" ${checks.includes(j)?'checked':''}><div class="ex-main"><div class="ex-name">${x[0]}</div><div class="ex-meta">${x[2]} · ${x[1]} · Rest ${x[3]}</div></div></div>
+  <div class="ex-actions"><a class="linkbtn primary" href="${googleLink(x[5])}" target="_blank" rel="noopener">Google Images ↗</a><button class="alt-toggle" data-alt="${j}" aria-expanded="false">Equipment alternatives +</button></div>
+  <div class="alternatives" id="alt-${j}"><b>If equipment is unavailable:</b> ${x[4]}</div>
+ </article>`).join('')}
+ <div class="actions"><button class="reset" id="resetDay">Reset this day’s checklist</button></div>
+ <div class="note">${isRest?'Rest day: no workout checklist today.':'Tick each exercise when completed. Your checkmarks are saved in this browser on this device.'}</div>`;
+ workoutEl.querySelectorAll('.check').forEach(c=>c.addEventListener('change',()=>{
+  const all=getChecks(),arr=all[d.day]||[],n=Number(c.dataset.index);
+  all[d.day]=c.checked?[...new Set([...arr,n])]:arr.filter(v=>v!==n);saveChecks(all);updateProgress();
+ }));
+ workoutEl.querySelectorAll('.alt-toggle').forEach(b=>b.addEventListener('click',()=>{
+  const box=document.getElementById('alt-'+b.dataset.alt),open=box.classList.toggle('open');
+  b.textContent=open?'Equipment alternatives −':'Equipment alternatives +';b.setAttribute('aria-expanded',String(open));
+ }));
+ document.getElementById('resetDay').addEventListener('click',()=>{const all=getChecks();delete all[d.day];saveChecks(all);renderWorkout();updateProgress()});
+ updateProgress();
+}
+function updateProgress(){
+ const d=workouts[selected],total=d.items.length,done=dayChecks(selected).length;
+ document.getElementById('progressText').textContent=d.day==='Tuesday'?'Rest day':`${done} / ${total} complete`;
+ document.getElementById('progressBar').style.width=(total?done/total*100:0)+'%';
+}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
+ document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t===b));
+ document.getElementById('nutrition').hidden=b.dataset.tab!=='nutrition';
+ document.getElementById('guidelines').hidden=b.dataset.tab!=='guidelines';
+}));
+renderNav();renderWorkout();
+</script>
+</body></html>
