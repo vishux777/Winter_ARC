@@ -1,4 +1,4 @@
-# My Training — Personal Gym Companion
+**# My Training — Personal Gym Companion
 
 A mobile-first, static workout dashboard. No framework, backend, database, or build step.
 
@@ -27,3 +27,4 @@ Open `index.html` in a browser.
 
 ## Notes
 Exercise alternatives are general options, not one-to-one prescriptions for every injury or limitation. Choose a pain-free variation and ask a qualified coach to check technique where needed. Nutrition values in the dashboard are provisional estimates.
+**
